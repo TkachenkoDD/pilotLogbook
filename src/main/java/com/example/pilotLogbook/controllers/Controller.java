@@ -14,12 +14,12 @@ public class Controller {
 
     private final FlightRecordService recordService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<FlightRecord> findAllRecords(){
         return recordService.findAllRecords();
     }
 
-    @PostMapping("save_record")
+    @PostMapping("/save_record")
     public String saveRecord(@RequestBody FlightRecord record){
         recordService.saveRecord(record);
         return "Record created";
@@ -30,12 +30,12 @@ public class Controller {
         return recordService.findByEmail(email);
     }
 
-    @PutMapping("update_record")
+    @PutMapping("/update_record")
     public void updateRecord(@RequestBody FlightRecord record){
         recordService.updateRecord(record);
     }
 
-    @DeleteMapping("delete_record")
+    @DeleteMapping("/delete_record")
     public void deleteRecord(@RequestBody FlightRecord record){
         recordService.deleteRecord(record);
     }

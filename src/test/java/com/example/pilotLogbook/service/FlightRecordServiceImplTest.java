@@ -127,7 +127,4 @@ public class FlightRecordServiceImplTest {
         record3.setTakeoffs(3);
         record3.setLandings(3);
     }
-
-
-
 }
