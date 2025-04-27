@@ -3,6 +3,7 @@ package com.example.pilotLogbook.controllers;
 import com.example.pilotLogbook.model.FlightRecord;
 import com.example.pilotLogbook.service.FlightRecordService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class Controller {
     private final FlightRecordService recordService;
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<FlightRecord> findAllRecords(){
         return recordService.findAllRecords();
     }
@@ -39,5 +41,4 @@ public class Controller {
     public void deleteRecord(@RequestBody FlightRecord record){
         recordService.deleteRecord(record);
     }
-
 }

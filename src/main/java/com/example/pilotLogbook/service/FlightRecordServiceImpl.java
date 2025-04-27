@@ -23,7 +23,7 @@ public class FlightRecordServiceImpl implements FlightRecordService {
     @Override
     public void saveRecord(FlightRecord record) {
         record.setDurationFlight(findDuration(record.getDepartureTime(), record.getArrivalTime()));
-        if (record.getNamePIC() == null)
+        if (record.getNamePIC().isEmpty())
             record.setNamePIC("SELF");
         else record.setNamePIC(record.getNamePIC().toUpperCase());
         recordsRepository.save(record);
