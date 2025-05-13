@@ -30,10 +30,12 @@ public class FlightRecordServiceImplTest {
 
     @Test
     void saveRecordTest() {
+        record2.setEmail("test@mail.com");
         flightRecordService.saveRecord(record2);
         verify(recordsRepository, times(1)).save(record2);
         assertEquals("PETROV", record2.getNamePIC());
 
+        record2.setEmail("test3@mail.com");
         flightRecordService.saveRecord(record3);
         verify(recordsRepository, times(1)).save(record3);
         assertEquals("SELF", record3.getNamePIC());
@@ -48,7 +50,7 @@ public class FlightRecordServiceImplTest {
 
     @Test
     void findByEmail() {
-        String email = "test@email.com";
+        String email = "test@mail.com";
         Mockito.when(recordsRepository.findAllByEmail(email)).thenReturn(List.of(record1, record2));
         assertNotNull(flightRecordService.findByEmail(email));
         assertEquals(2, flightRecordService.findByEmail(email).size());
@@ -83,7 +85,7 @@ public class FlightRecordServiceImplTest {
 
     @Test
     void findTotalsTest() {
-        String email = "test@email.com";
+        String email = "test@mail.com";
         when(recordsRepository.findAllByEmail(email)).thenReturn(List.of(record2, record1));
         record1.setNamePIC("SELF");
         flightRecordService.findTotals(email);
@@ -101,7 +103,7 @@ public class FlightRecordServiceImplTest {
     void setUp() {
         record1 = new FlightRecord();
         record1.setId(1);
-        record1.setEmail("test@email.com");
+        record1.setEmail("test@mail.com");
         record1.setDepartureTime("09:00");
         record1.setArrivalTime("10:00");
         record1.setDurationFlight("01:00");
@@ -110,7 +112,7 @@ public class FlightRecordServiceImplTest {
 
         record2 = new FlightRecord();
         record2.setId(2);
-        record2.setEmail("test@email.com");
+        record2.setEmail("test@mail.com");
         record2.setDepartureTime("23:15");
         record2.setArrivalTime("01:25");
         record2.setDurationFlight("02:10");
@@ -120,10 +122,11 @@ public class FlightRecordServiceImplTest {
 
         record3 = new FlightRecord();
         record3.setId(3);
-        record3.setEmail("test3@email.com");
+        record3.setEmail("test3@mail.com");
         record3.setDepartureTime("11:30");
         record3.setArrivalTime("15:55");
         record3.setDurationFlight("04:25");
+        record3.setNamePIC("");
         record3.setTakeoffs(3);
         record3.setLandings(3);
     }

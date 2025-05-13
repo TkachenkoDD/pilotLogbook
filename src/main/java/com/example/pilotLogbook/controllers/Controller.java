@@ -1,9 +1,11 @@
 package com.example.pilotLogbook.controllers;
 
+import com.example.pilotLogbook.config.MyUserDetails;
 import com.example.pilotLogbook.model.FlightRecord;
 import com.example.pilotLogbook.service.FlightRecordService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,8 @@ public class Controller {
     }
 
     @PostMapping("/save_record")
-    public String saveRecord(@RequestBody FlightRecord record){
+    public String saveRecord(@RequestBody FlightRecord record, @AuthenticationPrincipal MyUserDetails user){
+        record.setEmail(user.getUsername());
         recordService.saveRecord(record);
         return "Record created";
     }
